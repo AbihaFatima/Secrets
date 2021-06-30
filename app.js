@@ -25,7 +25,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect("mongodb+srv://admin-abiha:user123@cluster0.lhbkv.mongodb.net/userDB", {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect("mongodb+srv://admin-abiha:<password>@cluster0.lhbkv.mongodb.net/userDB", {useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.set("useCreateIndex", true);
 
 const userSchema = new mongoose.Schema ({
@@ -52,17 +52,12 @@ passport.serializeUser(function(user, done) {
     });
   });
 
-//google
-//   CLIENT_ID=28009429420-0f39n2bgh8socqat850f75l58thtrg00.apps.googleusercontent.com
-// CLIENT_SECRET=do5zWdcTn_xfjmptslg3Zbcq
 
-//facebook
-// clientID=1610471929158788
-// clientSecret=25bdce19c99085da0ec02155e2db89a9
+  
 
 passport.use(new facebookStrategy({
-    clientID : "1610471929158788",
-    clientSecret: "25bdce19c99085da0ec02155e2db89a9",
+    clientID : process.env.clientID,
+    clientSecret: process.env.clientSecret,
     callbackURL : "http://localhost:3000/auth/facebook/secrets",
     // profileFields: ['id','name','email']
 },
@@ -75,8 +70,8 @@ function(accessToken, refreshToken, profile, cb) {
 
 
 passport.use(new GoogleStrategy({
-    clientID: "28009429420-0f39n2bgh8socqat850f75l58thtrg00.apps.googleusercontent.com",
-    clientSecret: "do5zWdcTn_xfjmptslg3Zbcq",
+    clientID: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
     callbackURL: "http://localhost:3000/auth/google/secrets",
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
