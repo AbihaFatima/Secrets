@@ -25,7 +25,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect("mongodb+srv://admin-abiha:<password>@cluster0.lhbkv.mongodb.net/userDB", {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect("mongodb+srv://admin:<password>@cluster0.lhbkv.mongodb.net/userDB", {useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.set("useCreateIndex", true);
 
 const userSchema = new mongoose.Schema ({
@@ -82,12 +82,6 @@ passport.use(new GoogleStrategy({
     });
   }
 ));
-
-// console.log(md5("12345"));
-// It encryts the required feilds at newUser.save(function(err)) and decrypts the required feilds at find
-// userSchema.plugin(encrypt,{secret: process.env.SECRET, encryptedFields: ["password"]});
-
-
 
 app.get("/", function(req,res){
     res.render("home");
